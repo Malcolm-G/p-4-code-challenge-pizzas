@@ -7,16 +7,20 @@ class RestaurantsController < ApplicationController
     end
 
     def show
-        restaurant = Restaurant.find(params[:id])
+        restaurant = found_restaurant
         render json: restaurant
     end
 
     def destroy
-        restaurant = Restaurant.find(params[:id])
+        restaurant = found_restaurant
         restaurant.destroy
         head :no_content
 
     private
+
+    def found_restaurant
+        Restaurant.find(params[:id])
+    end
 
     def render_not_found_response
         render json: { error: "Restaurant not found" }, status: :not_found
