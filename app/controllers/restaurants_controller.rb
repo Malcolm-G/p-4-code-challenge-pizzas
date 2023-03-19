@@ -6,13 +6,14 @@ class RestaurantsController < ApplicationController
     end
 
     def show
-        render json: found_restaurant, include: :pizzas
+        render json: found_restaurant, serializer: RestaurantAndPizzasSerializer
     end
 
     def destroy
         restaurant = found_restaurant
         restaurant.destroy
         head :no_content
+    end
 
     private
 
@@ -23,4 +24,5 @@ class RestaurantsController < ApplicationController
     def render_not_found_response
         render json: { error: "Restaurant not found" }, status: :not_found
     end
+
 end
