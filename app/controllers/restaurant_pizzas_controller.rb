@@ -3,8 +3,8 @@ class RestaurantPizzasController < ApplicationController
     wrap_parameters format: []
 
     def create
-        restaurant_pizza = RestaurantPizza.create(restaurant_pizza_params)
-        render json: restaurant_pizza
+        restaurant_pizza = RestaurantPizza.create!(restaurant_pizza_params)
+        render json: restaurant_pizza.pizza
     end
 
     private
