@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
     end
 
     def show
-        render json: found_restaurant
+        render json: found_restaurant, include: :pizzas
     end
 
     def destroy
