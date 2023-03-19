@@ -1,24 +1,178 @@
-# README
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Malcolm-G/project-app-backend/graphs/commit-activity)
+[![GitHub forks](https://img.shields.io/github/forks/Malcolm-G/project-app-backend.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/Malcolm-G/project-app-backend/network)
+[![GitHub license](https://img.shields.io/badge/GNU%20GENERAL%20PUBLIC-icense-green)](https://github.com/Malcolm-G/project-app-backend/blob/main/Licence)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Project-App
+Project-App is a web application built with react and using Sinatraas the backend API.
 
-Things you may want to cover:
+This repository contains the backend built with ruby's Sinatra DSL.
 
-* Ruby version
+The application has been built with the MVC design pattern.
 
-* System dependencies
+## Pre-Requisites
+In order to use this repository you will need the following:
 
-* Configuration
 
-* Database creation
 
-* Database initialization
+- Operating System **(Windows `10+`, Linux `3.8+`, or MacOS X `10.7+`)**
+- RAM >= 4GB
+- Free Space >= 2GB
 
-* How to run the test suite
+## Built With
+This application has been built with the following tools:
 
-* Services (job queues, cache servers, search engines, etc.)
+![ruby](https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white)
+![sqlite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 
-* Deployment instructions
 
-* ...
+- **Ruby `v2.7.+`**
+- **SQlite3 `v1.6`**
+- **ActiveRecord `v7.0.4`**
+- **Rake `v13.0.6`**
+- **Puma `v6.1`**
+- **Rails `v7.0.4`**
+- **active_model_serializers `v0.10.13`**
+- **faker `v3.1.1`**
+
+## Setup
+You can setup this repository by following this manual
+
+1. Clone the repository
+    ```{shell}
+   git clone https://github.com/Malcolm-G/p-4-code-challenge-pizzas.git
+   ```
+2. Ensure the ruby gems are setup in your machine
+    ```{shell}
+   bundle install
+   ```
+3. Perform any pending database migrations
+   ```{shell}
+   rails db:migrate
+   ```
+4. Run the application
+    ```{shell}
+    rails s
+    ```
+5. Open the application from your browser
+    ```
+   http://localhost:3000
+   ```
+   
+## Application
+This application is a simple web API that allows users to:
+
+- View existing restaurants
+- Delete a restaurant
+- View a specific restaurant and its pizzas
+- View all pizzas
+- Add a pizza to a restaurant
+  
+### Below is an ERD diagram of the database.
+
+![ERD Diagram](images/project-app-ERD.png)
+
+### MODELS
+Database schema definitions.
+
+#### Projects
+
+| COLUMN      | DATA TYPE                                       | DESCRIPTION                         | 
+|-------------|-------------------------------------------------|-------------------------------------|
+| id          | Integer                                         | Unique identifier.                  |
+| title       | String                                          | The name of the project.            |
+| description | String                                          | A short description about the task. |
+| due         | Date                                            | The set due date for the task.      |
+| created_at  | DateTime                                        | The date the task was created.      |
+| updated_at  | DateTime                                        | The date the project was updated    |
+| status      | ENUM `[CREATED, ONGOING, COMPLETED, CANCELLED]` | The status of the project           |
+
+
+#### USER
+| COLUMN        | DATA TYPE | DESCRIPTION                           | 
+|---------------|-----------|---------------------------------------|
+| id            | Integer   | Unique identifier.                    |
+| full_name     | String    | User's full name.                     |
+| password_hash | String    | User's password hashed with `BCrypt`. |
+| email         | string    | User's email                          |
+| username      | string    | User's username                       |
+
+
+### ROUTES
+
+1. `/hello` - Presents a simple welcome message.
+2. `/auth/register` - Create a new user account.
+   
+   ```{json}
+   ## REQUEST BODY
+   {
+    "full_name": "John Doe",
+    "email": "mail@mail.com",
+    "username": "Malstrom",
+    "password": "12345678"
+   }
+   ```
+3. `/auth/login` - Log in a user using email and password.
+
+   ```{json}
+   ## REQUEST BODY
+   {
+    "email": "mail@mail.com",
+    "password": "12345678"
+   }
+   ```
+4. `/projects/create` - Add a new Project item.
+
+   ```{json}
+   ## REQUEST BODY
+   {
+    "title": "Make Breakfast",
+    "description": "Prepare milk and cereal",
+    "due": "2023-09-09"
+   }
+   ```
+5. `/projects` - List all Project items.
+
+   ```{json}
+   ## RESPONSE SAMPLE
+   {
+    "data": [
+        {
+            "id": 2,
+            "title": "Running another DSA practice 2",
+            "description": "A wild desc",
+            "due": "2023-02-24T00:00:00.000Z",
+            "createdAt": "2023-02-24T09:34:41.856Z",
+            "status": "CREATED"
+        }],
+    "message": "SUCCESS"
+   }
+   ```
+6. `/projects/update/:id` - Update an existing Project.
+7. `/projects/delete/:id` - Delete a Project item.
+8. `/` - Render a table of all projects using Bootstrap and ERB
+
+<!-- ![Todo Table](screens/todo_table.png) -->
+
+## LICENSE
+This repository is distributed under the GNU GENERAL PUBLIC LICENSE v3
+
+```markdown
+Copyright 2023 Malcolm Githuka
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), 
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+## Author
+This repository is maintained by:
+
+- [Malcolm Githuka](https://github.com/Malcolm-G)
