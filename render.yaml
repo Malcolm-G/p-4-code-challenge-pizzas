@@ -1,0 +1,18 @@
+databases:
+  - name: p-4-code-challenge-pizzas
+    databaseName: p-4-code-challenge-pizzas
+    user: p-4-code-challenge-pizzas
+
+services:
+  - type: web
+    name: p-4-code-challenge-pizzas
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: p-4-code-challenge-pizzas
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
