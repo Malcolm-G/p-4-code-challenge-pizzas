@@ -70,89 +70,60 @@ This application is a simple web API that allows users to:
 - View all pizzas
 - Add a pizza to a restaurant
   
-### Below is an ERD diagram of the database.
+<!-- ### Below is an ERD diagram of the database.
 
-![ERD Diagram](images/project-app-ERD.png)
+![ERD Diagram](images/project-app-ERD.png) -->
 
 ### MODELS
 Database schema definitions.
 
-#### Projects
+#### Restaurants
 
 | COLUMN      | DATA TYPE                                       | DESCRIPTION                         | 
 |-------------|-------------------------------------------------|-------------------------------------|
 | id          | Integer                                         | Unique identifier.                  |
-| title       | String                                          | The name of the project.            |
-| description | String                                          | A short description about the task. |
-| due         | Date                                            | The set due date for the task.      |
-| created_at  | DateTime                                        | The date the task was created.      |
-| updated_at  | DateTime                                        | The date the project was updated    |
-| status      | ENUM `[CREATED, ONGOING, COMPLETED, CANCELLED]` | The status of the project           |
+| name       | String                                          | The name of the restaurant.            |
+| address | String                                          | Address of restaurant |
+| created_at  | DateTime                                        | The date the restaurant was created.      |
+| updated_at  | DateTime                                        | The date the restaurant was updated    |
 
 
-#### USER
+#### Pizzas
 | COLUMN        | DATA TYPE | DESCRIPTION                           | 
 |---------------|-----------|---------------------------------------|
 | id            | Integer   | Unique identifier.                    |
-| full_name     | String    | User's full name.                     |
-| password_hash | String    | User's password hashed with `BCrypt`. |
-| email         | string    | User's email                          |
-| username      | string    | User's username                       |
+| name     | String    | Pizza's name                     |
+| ingredients | String    | string of pizza ingredients |
+| created_at  | DateTime                                        | The date the pizza was created.      |
+| updated_at  | DateTime                                        | The date the pizza was updated    |
+
+#### RestaurantPizzas
+| COLUMN        | DATA TYPE | DESCRIPTION                           | 
+|---------------|-----------|---------------------------------------|
+| id            | Integer   | Unique identifier.                    |
+| price     | Integer    | Price of Pizza                     |
+| pizza_id | Integer    | Foreign key to pizza |
+| restaurant_id | Integer    | Foreign key to restaurant |
+| created_at  | DateTime                                        | The date the join table was created.      |
+| updated_at  | DateTime                                        | The date the join table was updated    |
 
 
 ### ROUTES
 
-1. `/hello` - Presents a simple welcome message.
-2. `/auth/register` - Create a new user account.
+1. GET `/restaurants` - Presents a list of all restaurants
+2. GET `/restaurants/:id` - Shows specific restaurant and its pizzas
+3. DELETE `/restaurants/:id` - Delete a restaurant and its restaurant pizzas. Returns an empty body.
+4. GET `/pizzas` - Presents a list of pizzas
+5. POST `/restaurant_pizzas` - creates a new restaurant_pizza.
    
-   ```{json}
-   ## REQUEST BODY
-   {
-    "full_name": "John Doe",
-    "email": "mail@mail.com",
-    "username": "Malstrom",
-    "password": "12345678"
-   }
-   ```
-3. `/auth/login` - Log in a user using email and password.
-
-   ```{json}
-   ## REQUEST BODY
-   {
-    "email": "mail@mail.com",
-    "password": "12345678"
-   }
-   ```
-4. `/projects/create` - Add a new Project item.
-
-   ```{json}
-   ## REQUEST BODY
-   {
-    "title": "Make Breakfast",
-    "description": "Prepare milk and cereal",
-    "due": "2023-09-09"
-   }
-   ```
-5. `/projects` - List all Project items.
-
    ```{json}
    ## RESPONSE SAMPLE
    {
-    "data": [
-        {
-            "id": 2,
-            "title": "Running another DSA practice 2",
-            "description": "A wild desc",
-            "due": "2023-02-24T00:00:00.000Z",
-            "createdAt": "2023-02-24T09:34:41.856Z",
-            "status": "CREATED"
-        }],
-    "message": "SUCCESS"
+   "price": 5,
+   "pizza_id": 1,
+   "restaurant_id": 3
    }
    ```
-6. `/projects/update/:id` - Update an existing Project.
-7. `/projects/delete/:id` - Delete a Project item.
-8. `/` - Render a table of all projects using Bootstrap and ERB
 
 <!-- ![Todo Table](screens/todo_table.png) -->
 
