@@ -70,9 +70,9 @@ This application is a simple web API that allows users to:
 - View all pizzas
 - Add a pizza to a restaurant
   
-<!-- ### Below is an ERD diagram of the database.
+### Below is an ERD diagram of the database.
 
-![ERD Diagram](images/project-app-ERD.png) -->
+![ERD Diagram](public/images/ERD_screenshot.png)
 
 ### MODELS
 Database schema definitions.
